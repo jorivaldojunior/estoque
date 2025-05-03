@@ -15,15 +15,16 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
     />
- <!-- SweetAlert2 JS -->
+    <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
+
     <style>
       .screen {
-        background-image: url("https://img.freepik.com/fotos-gratis/interior-de-grande-armazem-de-distribuicao-com-prateleiras-repletas-de-paletas-e-produtos-prontos-para-o-mercado_342744-1481.jpg");
+        background-image: url("./image/2.webp");
         background-size: cover;
         background-repeat: no-repeat;
         position: relative;
+        transition: background-image 1s ease-in-out;
       }
 
       .overlay-bg {
@@ -65,14 +66,33 @@
         max-width: 500px;
         width: 100%;
         background-color: white;
-        padding: 50px; /* Aumentando o padding para dar mais espaço */
+        padding: 50px;
         border-radius: 8px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+        margin: 0 auto;
       }
 
-      /* Ajuste de altura do formulário */
-      #loginForm {
-        min-height: 300px; /* Ajuste a altura mínima conforme necessário */
+      .content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .login-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .login-logo {
+        width: 40px;
+        height: 40px;
       }
     </style>
   </head>
@@ -80,12 +100,13 @@
   <body class="bg-gray-100">
     <!-- Tela de Login -->
     <div
+      id="backgroundScreen"
       class="screen h-screen flex flex-col justify-center items-center bg-gradient-to-b from-purple-600 to-gray-100 text-white fade-in"
     >
       <div class="overlay-bg"></div>
       <div class="content">
-        <h1 class="text-4xl font-extrabold mb-4 text-blue-600">
-          Sistema de Controle de Estoque
+        <h1 class="text-5xl font-extrabold mb-4 text-green-600">
+         Sistema de Controle Para Estoque...
         </h1>
         <br />
         <form
@@ -93,9 +114,16 @@
           class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 max-w-lg w-full modal"
         >
           <div class="mb-4">
-            <h2 class="text-2xl text-blue-500 font-bold mb-8">
-              Faça Seu Login:
-            </h2>
+            <div class="login-header">
+              <h2 class="text-3xl text-green-600 font-bold">
+                Faça Seu Login
+              </h2>
+              <img 
+                src=".//image/logo4.jpg" 
+                alt="Logo" 
+                class="login-logo"
+              >
+            </div>
             <input
               id="username"
               type="text"
@@ -117,7 +145,7 @@
             <button
               type="button"
               onclick="verificarLogin()"
-              class="bg-blue-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover-transition"
+              class="bg-green-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover-transition"
             >
               Entrar
             </button>
@@ -125,6 +153,7 @@
         </form>
       </div>
     </div>
+   
     <script src="./script.js"></script>
   </body>
 </html>

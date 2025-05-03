@@ -20,7 +20,7 @@
 
     <style>
       .screen {
-        background-image: url("https://img.freepik.com/fotos-gratis/interior-de-grande-armazem-de-distribuicao-com-prateleiras-repletas-de-paletas-e-produtos-prontos-para-o-mercado_342744-1481.jpg");
+        background-image: url("./image/12.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         position: relative;
@@ -32,13 +32,13 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro com opacidade */
+        background-color: rgba(0, 0, 0, 0.7);
         z-index: 1;
       }
 
       .content {
         position: relative;
-        z-index: 2; /* Conteúdo acima do overlay */
+        z-index: 2;
         text-align: center;
       }
 
@@ -61,7 +61,6 @@
         transform: scale(1.05);
       }
 
-      /* Estilo padrão para o modal */
       .modal {
         max-width: 500px;
         width: 100%;
@@ -69,6 +68,20 @@
         padding: 50px;
         border-radius: 8px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        margin: 0 auto
+      }
+
+      .login-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .login-logo {
+        width: 40px;
+        height: 40px;
       }
     </style>
   </head>
@@ -81,15 +94,26 @@
     >
       <div class="overlay-bg"></div>
       <div class="content">
-        <h1 class="text-4xl font-extrabold mb-4 text-blue-500 text-center">
-          Sistema de Controle de Estoque
+        <h1 class="text-5xl font-extrabold mb-4 text-green-600">
+          Sistema de Controle Para Estoque...
         </h1>
-        <h2 class="text-3xl font-bold mb-8">Cadastrar Produto:</h2>
-
+        
         <form
           id="produtoForm"
-          class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 max-w-lg w-full"
+          class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 max-w-lg w-full modal"
         >
+          <!-- Título e logo dentro do formulário -->
+          <div class="login-header">
+            <h2 class="text-3xl text-green-600 font-bold">
+              Cadastro de Produto
+            </h2>
+            <img 
+              src="./image/logo4.jpg" 
+              alt="Logo" 
+              class="login-logo"
+            >
+          </div>
+          
           <div class="mb-4">
             <input
               id="nomeProduto"
@@ -114,7 +138,6 @@
               class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <!-- Campo de Data de Recebimento -->
           <div class="mb-4">
             <input
               id="dataRecebimento"
@@ -123,30 +146,33 @@
             />
           </div>
 
-          <div class="flex justify-between">
+          <!-- Botões alinhados na mesma linha -->
+          <div class="flex justify-between items-center mt-6">
             <button
               type="button"
               onclick="cadastrarProduto()"
-              class="bg-blue-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover-transition"
+              class="bg-green-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover-transition"
             >
               Cadastrar
             </button>
+            
+            <button
+              type="button"
+              onclick="navigateToListaProdutos()"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded hover-transition"
+            >
+              Ver Produtos
+            </button>
+            
+            <button
+              type="button"
+              onclick="window.location.href='index.html'"
+              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded hover-transition"
+            >
+              Sair X
+            </button>
           </div>
         </form>
-
-        <button
-          id="btnFechar"
-          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4"
-        >
-          Sair X
-        </button>
-
-        <button
-          onclick="navigateToListaProdutos()"
-          class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg mt-4 hover-transition"
-        >
-          Ver Lista de Produtos
-        </button>
       </div>
     </div>
 
@@ -157,7 +183,7 @@
     >
       <div class="overlay-bg"></div>
       <div class="content">
-        <h1 class="text-4xl font-extrabold mb-4 text-blue-500 text-center">
+        <h1 class="text-4xl font-extrabold mb-4 text-green-600 text-center">
           Produtos Cadastrados
         </h1>
         <div class="flex justify-between items-center mb-4">
@@ -179,7 +205,7 @@
 
         <table class="table-auto bg-white rounded-lg shadow-lg">
           <thead>
-            <tr class="bg-blue-600 text-white">
+            <tr class="bg-green-600 text-white">
               <th class="px-4 py-2">ID</th>
               <th class="px-4 py-2">Nome do Produto</th>
               <th class="px-4 py-2">Marca do Produto</th>
@@ -253,7 +279,7 @@
       class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
     >
       <div class="modal">
-        <h2 class="text-2xl font-bold mb-4">Editar Produto</h2>
+        <h2 class="text-2xl text-green-600 font-bold mb-4">Editar Produto</h2>
         <form id="editarForm">
           <div class="mb-4">
             <input
@@ -301,7 +327,7 @@
             <button
               type="button"
               onclick="atualizarProduto()"
-              class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover-transition"
+              class="bg-blue-600 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover-transition"
             >
               Atualizar
             </button>
@@ -323,7 +349,7 @@
       class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
     >
       <div class="modal">
-        <h2 class="text-2xl font-bold mb-4">Adicionar Pedido</h2>
+        <h2 class="text-2xl text-green-600 font-bold mb-4">Adicionar Pedido</h2>
         <div class="mb-4">
           <label>Produto:</label>
           <input
@@ -354,7 +380,7 @@
         <div class="flex justify-between">
           <button
             onclick="adicionarAoCarrinho()"
-            class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            class="bg-blue-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           >
             Adicionar ao Carrinho
           </button>
@@ -374,7 +400,7 @@
       class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
     >
       <div class="modal">
-        <h2 class="text-2xl font-bold mb-4">
+        <h2 class="text-2xl text-green-600 font-bold mb-4">
           Adicione seus pedidos de compras!
         </h2>
         <ul id="listaCarrinho" class="mb-4">
@@ -383,7 +409,7 @@
         <div class="flex justify-between">
           <button
             onclick="enviarPedidoWhatsApp()"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            class="bg-green-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Enviar Pedido
           </button>

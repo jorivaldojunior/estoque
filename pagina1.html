@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema de Controle de Estoque</title>
 
     <!-- Tailwind CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <!-- SweetAlert2 CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -68,7 +62,7 @@
         padding: 50px;
         border-radius: 8px;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
-        margin: 0 auto
+        margin: 0 auto;
       }
 
       .login-header {
@@ -83,35 +77,80 @@
         width: 40px;
         height: 40px;
       }
-    </style>
-  </head>
 
-  <body class="bg-gray-100">
+      /* Estilos adicionados específicos para o que foi pedido */
+      .header-fixed {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        padding-top: 20px;
+        width: 100%;
+      }
+
+      .search-fixed {
+        position: sticky;
+        top: 80px;
+        z-index: 9;
+        width: 100%;
+        padding-bottom: 10px;
+      }
+
+      .products-container {
+        max-height: calc(100vh - 180px);
+        overflow-y: auto;
+        margin-top: 10px;
+      }
+
+      .title-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+
+      .title-left {
+        text-align: left;
+        flex: 1;
+      }
+
+      .buttons-center {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex: 2;
+      }
+
+      .search-right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      /* Fixar cabeçalho da tabela no topo da área da tabela */
+      .fixed-table-header thead tr {
+        position: sticky;
+        top: 0;
+        z-index: 8;
+      }
+    </style>
+</head>
+
+<body class="bg-gray-100">
     <!-- Tela de Cadastro de Produto -->
-    <div
-      id="cadastroProdutoScreen"
-      class="screen h-screen flex flex-col justify-center items-center bg-gradient-to-b from-purple-600 to-gray-100 text-white fade-in"
-    >
+    <div id="cadastroProdutoScreen" class="screen h-screen flex flex-col justify-center items-center bg-gradient-to-b from-purple-600 to-gray-100 text-white fade-in">
       <div class="overlay-bg"></div>
       <div class="content">
-        <h1 class="text-5xl font-extrabold mb-4 text-green-600">
+        <h1 class="text-4xl font-extrabold mb-4 text-green-600">
           Sistema de Controle Para Estoque...
         </h1>
         
-        <form
-          id="produtoForm"
-          class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 max-w-lg w-full modal"
-        >
-          <!-- Título e logo dentro do formulário -->
+        <form id="produtoForm" class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 max-w-lg w-full modal">
           <div class="login-header">
             <h2 class="text-3xl text-green-600 font-bold">
               Cadastro de Produto
             </h2>
-            <img 
-              src="./image/logo4.jpg" 
-              alt="Logo" 
-              class="login-logo"
-            >
+            <img src="./image/logo4.jpg" alt="Logo" class="login-logo">
           </div>
           
           <div class="mb-4">
@@ -146,7 +185,6 @@
             />
           </div>
 
-          <!-- Botões alinhados na mesma linha -->
           <div class="flex justify-between items-center mt-6">
             <button
               type="button"
@@ -177,71 +215,79 @@
     </div>
 
     <!-- Tela de Lista de Produtos -->
-    <div
-      id="listaProdutosScreen"
-      class="screen hidden h-screen flex flex-col justify-center items-center bg-gradient-to-b from-blue-600 to-gray-100 text-white fade-in"
-    >
+    <div id="listaProdutosScreen" class="screen hidden h-screen flex flex-col items-center bg-gradient-to-b from-blue-600 to-gray-100 text-white fade-in">
       <div class="overlay-bg"></div>
-      <div class="content">
-        <h1 class="text-4xl font-extrabold mb-4 text-green-600 text-center">
-          Produtos Cadastrados
-        </h1>
-        <div class="flex justify-between items-center mb-4">
-          <h1 class="text-2xl font-bold">Lista de Produtos</h1>
-          <div class="relative">
-            <input
-              type="text"
-              id="filtroProduto"
-              class="border rounded-lg px-4 py-2 text-gray-700"
-              placeholder="Buscar produto..."
-              oninput="filtrarProdutos()"
-            />
-            <ul
-              id="sugestoes"
-              class="absolute bg-white text-gray-700 border-gray-300 rounded-lg mt-1 hidden max-h-40 overflow-y-auto z-10"
-            ></ul>
+      <div class="content w-full px-4">
+        <!-- Cabeçalho fixo -->
+        <div class="header-fixed text-center">
+          <h1 class="text-4xl font-extrabold mb-2 text-green-600">
+            Produtos Cadastrados no Estoque...
+          </h1>
+        </div>
+
+        <!-- Linha com título, botões e busca -->
+        <div class="search-fixed">
+          <div class="title-line">
+            <h1 class="text-2xl font-bold title-left">Lista de Produtos</h1>
+            
+            <div class="buttons-center">
+              <button
+                onclick="navigateToCadastroProduto()"
+                class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover-transition"
+              >
+                Voltar ao Cadastro
+              </button>
+              <button
+                onclick="navigateToEstoqueZerado()"
+                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover-transition"
+              >
+                Ver Estoque Zerado
+              </button>
+            </div>
+            
+            <div class="search-right">
+              <div class="relative">
+                <input
+                  type="text"
+                  id="filtroProduto"
+                  class="border rounded-lg px-4 py-2 text-gray-700"
+                  placeholder="Buscar produto..."
+                  oninput="filtrarProdutos()"
+                />
+                <ul
+                  id="sugestoes"
+                  class="absolute bg-white text-gray-700 border-gray-300 rounded-lg mt-1 hidden max-h-40 overflow-y-auto z-10 w-full"
+                ></ul>
+              </div>
+            </div>
           </div>
         </div>
 
-        <table class="table-auto bg-white rounded-lg shadow-lg">
-          <thead>
-            <tr class="bg-green-600 text-white">
-              <th class="px-4 py-2">ID</th>
-              <th class="px-4 py-2">Nome do Produto</th>
-              <th class="px-4 py-2">Marca do Produto</th>
-              <th class="px-4 py-2">Quantidade Atual</th>
-              <th class="px-4 py-2">Data de Lançamento</th>
-              <th class="px-4 py-2">Última Movimentação</th>
-              <th class="px-4 py-2">Colaboradores Envolvidos</th>
-              <th class="px-4 py-2">Ações</th>
-            </tr>
-          </thead>
-          <tbody id="listaProdutos" class="text-gray-700">
-            <!-- Linhas de produtos serão inseridas aqui dinamicamente -->
-          </tbody>
-        </table>
-
-        <button
-          onclick="navigateToCadastroProduto()"
-          class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg mt-8 hover-transition"
-        >
-          Voltar ao Cadastro
-        </button>
-
-        <button
-          onclick="navigateToEstoqueZerado()"
-          class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg mt-4 hover-transition"
-        >
-          Ver Estoque Zerado
-        </button>
+        <!-- Container da tabela com scroll -->
+        <div class="products-container">
+          <table class="fixed-table-header table-auto bg-white rounded-lg shadow-lg w-full">
+            <thead>
+              <tr class="bg-green-600 text-white">
+                <th class="px-4 py-2">ID</th>
+                <th class="px-4 py-2">Nome do Produto</th>
+                <th class="px-4 py-2">Marca do Produto</th>
+                <th class="px-4 py-2">Quantidade Atual</th>
+                <th class="px-4 py-2">Data de Lançamento</th>
+                <th class="px-4 py-2">Última Movimentação</th>
+                <th class="px-4 py-2">Colaboradores Envolvidos</th>
+                <th class="px-4 py-2">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="listaProdutos" class="text-gray-700">
+              <!-- Linhas de produtos serão inseridas aqui dinamicamente -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
     <!-- Tela de Produtos com Estoque Zerado -->
-    <div
-      id="estoqueZeradoScreen"
-      class="screen hidden h-screen flex flex-col justify-center items-center bg-gradient-to-b from-purple-600 to-gray-100 text-white fade-in"
-    >
+    <div id="estoqueZeradoScreen" class="screen hidden h-screen flex flex-col justify-center items-center bg-gradient-to-b from-purple-600 to-gray-100 text-white fade-in">
       <div class="overlay-bg"></div>
       <div class="content">
         <h1 class="text-4xl font-extrabold mb-4 text-red-500 text-center">
@@ -274,12 +320,10 @@
     </div>
 
     <!-- Modal de Edição de Produto -->
-    <div
-      id="editarModal"
-      class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-    >
+    <div id="editarModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="modal">
         <h2 class="text-2xl text-green-600 font-bold mb-4">Editar Produto</h2>
+         
         <form id="editarForm">
           <div class="mb-4">
             <input
@@ -305,7 +349,6 @@
               class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <!-- Data de Recebimento Não Editável -->
           <div class="mb-4">
             <input
               id="editarDataRecebimento"
@@ -314,7 +357,6 @@
               class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
-          <!-- Campo para Nome do Colaborador -->
           <div class="mb-4">
             <input
               id="nomeColaborador"
@@ -344,10 +386,7 @@
     </div>
 
     <!-- Modal de Pedido -->
-    <div
-      id="modalPedido"
-      class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-    >
+    <div id="modalPedido" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="modal">
         <h2 class="text-2xl text-green-600 font-bold mb-4">Adicionar Pedido</h2>
         <div class="mb-4">
@@ -395,10 +434,7 @@
     </div>
 
     <!-- Modal de Carrinho -->
-    <div
-      id="modalCarrinho"
-      class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
-    >
+    <div id="modalCarrinho" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div class="modal">
         <h2 class="text-2xl text-green-600 font-bold mb-4">
           Adicione seus pedidos de compras!
@@ -424,7 +460,7 @@
     </div>
 
     <!-- Ícone de Carrinho de Compras Moderno -->
-    <div id="carrinhoIcon" class="fixed top-4 right-4 flex items-center">
+    <div id="carrinhoIcon" class="fixed top-4 right-4 flex items-center z-50">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -446,5 +482,5 @@
     </div>
 
     <script src="./script.js"></script>
-  </body>
+</body>
 </html>
